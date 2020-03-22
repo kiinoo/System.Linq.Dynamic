@@ -42,17 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicLinq.cs" />
+    <Compile Include="DynamicExpression2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if exist $(SolutionDir)..\NuGet\lib\net40\ rd /s /q $(SolutionDir)..\NuGet\lib\net40\
-
-mkdir $(SolutionDir)..\NuGet\lib\net40\
-
-copy /Y $(TargetPath) $(SolutionDir)..\NuGet\lib\net40\
-
-$(SolutionDir)..\NuGet\NuGet.exe pack $(SolutionDir)..\NuGet\System.Linq.Dynamic.nuspec -OutputDirectory $(SolutionDir)..\NuGet\</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

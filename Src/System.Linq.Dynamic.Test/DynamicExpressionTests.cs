@@ -69,5 +69,48 @@ namespace System.Linq.Dynamic.Test
 
             Task.WaitAll(tasks.ToArray());
         }
+
+        [TestMethod]
+        public void ParseLambda_GenericMethodCall_ReturnsGenericList()
+        {
+            ItMethodTest<A, List<string>>("it.GetName()");
+        }
+
+        [TestMethod]
+        public void ParseLambda_RunExpression()
+        {
+            var a = new A();
+            var result = DynamicExpression.EvaluatePredicateLambdaExpression("a.IsTrue()", Tuple.Create(nameof(a), a));
+            Assert.AreEqual(true, result);
+        }
+
+        [TestMethod]
+        public void ParseLambda_GenericMethodCall_ReturnsGenericNewList()
+        {
+            ItMethodTest<A, List<string>>("new List<string>()");
+        }
+
+        public void ItMethodTest<TTarget, TReturn>(string code)
+        {
+            var expression = DynamicExpression.ParseLambda(
+                typeof(TTarget),
+                typeof(TReturn),
+                code);
+            Assert.AreEqual(typeof(TReturn), expression.ReturnType);
+            Assert.AreEqual(typeof(Func<TTarget, TReturn>), expression.Type);
+        }
+    }
+
+    class A
+    {
+        public List<string> GetName()
+        {
+            return new List<string>();
+        }
+
+        public bool IsTrue()
+        {
+            return true;
+        }
     }
 }

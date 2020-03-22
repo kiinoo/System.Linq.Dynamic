@@ -304,7 +304,7 @@ namespace System.Linq.Dynamic
         }
     }
 
-    public static class DynamicExpression
+    public static partial class DynamicExpression
     {
         public static Expression Parse(ParameterExpression[] parameters, Type resultType, string expression, params object[] values)
         {
